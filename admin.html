@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="CSS/admin.css">
+</head>
+<body>
+
+<header>
+    <h1>Admin Panel</h1>
+    <p>Kelas TI</p>
+</header>
+
+<nav class="navbar">
+    <a href="index.html">🏠 Home</a>
+    <button onclick="logout()">Logout</button>
+</nav>
+
+<section class="container">
+    <h2>Kelola Jadwal</h2>
+
+    <form id="formJadwal">
+        <input type="hidden" id="editIndex">
+
+        <label>Hari</label>
+        <select id="hari" required>
+            <option value="">-- Pilih Hari --</option>
+            <option>Senin</option>
+            <option>Selasa</option>
+            <option>Rabu</option>
+            <option>Kamis</option>
+            <option>Jumat</option>
+        </select>
+
+        <label>Mata Pelajaran</label>
+        <input type="text" id="mapel" required>
+
+        <label>Jam</label>
+        <input type="text" id="jam" placeholder="08.00 - 09.40" required>
+
+        <button type="submit">💾 Simpan</button>
+        <button type="button" onclick="resetForm()" class="secondary">Batal</button>
+    </form>
+
+    <h3>Data Jadwal</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Hari</th>
+                <th>Mata Pelajaran</th>
+                <th>Jam</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="jadwalTable"></tbody>
+    </table>
+</section>
+
+<script>
+    // proteksi login
+    if (localStorage.getItem("isLogin") !== "true") {
+        location.href = "login.html";
+    }
+    if (localStorage.getItem("role") !== "admin") {
+        alert("Akses ditolak!");
+        location.href = "index.html";
+    }
+
+function logout() {
+    const yakin = confirm("Apakah kamu yakin ingin logout?");
+    if (yakin) {
+        localStorage.clear();
+        location.href = "login.html";
+    }
+}
+
+
+</script>
+<script src="js/admin.js"></script>
+
+
+</body>
+</html>

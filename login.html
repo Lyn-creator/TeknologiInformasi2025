@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Kelas TI</title>
+    <link rel="stylesheet" href="CSS/login.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-box">
+
+            <h2>Login Website TI</h2>
+            <p>Silakan login untuk masuk ke website kelas.</p>
+
+            <form onsubmit="login(); return false;">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Masukkan username">
+
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Masukkan password">
+
+                <button type="submit">Login</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

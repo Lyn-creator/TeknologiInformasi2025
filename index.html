@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Kelas TI</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>Kelas Teknologi Informasi</h1>
+        <p>Tahun Ajaran 2025</p>
+    </header>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#home">Home</a>
+            <a href="#struktur">Struktur</a>
+            <a href="#siswa">Mahasiswa</a>
+            <a href="#jadwal">Jadwal</a>
+            <a href="admin.html" id="adminMenu">Admin</a>
+        </div>
+        <div class="nav-right">
+    <span id="roleLabel"></span>
+    <button onclick="logout()">Logout</button>
+</div>
+
+    </nav>
+
+    <!-- HOME -->
+    <section id="home">
+        <h2>Selamat Datang</h2>
+        <p>Website resmi kelas TI.</p>
+    </section>
+
+    <!--DASBORAD INFO-->
+    <section id="dashboard">
+    <h2>Informasi Kelas</h2>
+    <div class="info-grid">
+        <div class="info-card">
+            <h3 id="totalSiswa">0</h3>
+            <p>Mahasiswa</p>
+        </div>
+        <div class="info-card">
+            <h3 id="totalMapel">0</h3>
+            <p>Mata Pelajaran</p>
+        </div>
+        <div class="info-card">
+            <h3 id="totalHari">0</h3>
+            <p>Hari Aktif</p>
+        </div>
+    </div>
+</section>
+
+
+    <!-- STRUKTUR KELAS -->
+    <section id="struktur">
+        <h2>Struktur Kelas</h2>
+        <ul>
+            <li>Ketua: Anggit Andini</li>
+            <li>Sekretaris: Roihana</li>
+            <li>Bendahara: Nur Riska</li>
+        </ul>
+    </section>
+
+    <!-- DAFTAR SISWA -->
+    <section id="siswa">
+        <h2>Daftar Mahasiswa</h2>
+        <ol>
+            <li>Adi Eko Putro</li>
+            <li>Abdullah Hanif</li>
+            <li>Anggi Trinugroho</li>
+            <li>Anggit Andini</li>
+            <li>Anggit Nur Hasim</li>
+            <li>Afif Masy'al</li>
+            <li>Brilian Firsta Adena</li>
+            <li>Faisal Himawan</li>
+            <li>Fauzi Rifqi Musyaffa'</li>
+            <li>Muhammad Muslimin Nur Salam Sidi</li>
+            <li>Nur Riska</li>
+            <li>Rafael Arfi Alfiando</li>
+            <li>Ragil Bintang Syahputra</li>
+            <li>Rama Aji Kusuma</li>
+            <li>Riski Deni Supriyanto</li>
+            <li>Roihana Wahyu Setyaningsih</li>
+        </ol>
+    </section>
+
+    <!-- JADWAL -->
+<section id="jadwal">
+    <h2>Jadwal Pelajaran</h2>
+    <button onclick="downloadPDF()" style="margin-bottom:15px;">
+    📄 Download Jadwal PDF
+</button>
+
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Hari</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Jam</th>
+                </tr>
+            </thead>
+            <tbody id="jadwalTable">
+                <!-- DATA DARI JS -->
+            </tbody>
+        </table>
+    </div>
+</section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 Lynne</p>
+    </footer>
+
+    <!-- SCRIPT -->
+<script>
+    // Cek login
+    if (localStorage.getItem("isLogin") !== "true") {
+        window.location.href = "login.html";
+    }
+
+    // Cek role
+    const role = localStorage.getItem("role");
+    const adminMenu = document.getElementById("adminMenu");
+
+    if (role !== "admin") {
+        adminMenu.style.display = "none";
+    }
+
+    // Logout
+function logout() {
+    const yakin = confirm("Apakah kamu yakin ingin logout?");
+    if (yakin) {
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+}
+
+    //Admin & User
+    const roleLabel = document.getElementById("roleLabel");
+roleLabel.textContent = role === "admin" ? "👑 Admin" : "👤 User";
+
+    async function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const jadwal = JSON.parse(localStorage.getItem("jadwal")) || [];
+
+        if (jadwal.length === 0) {
+            alert("Jadwal masih kosong!");
+            return;
+        }
+
+        doc.setFontSize(16);
+        doc.text("Jadwal Pelajaran Kelas TI", 14, 15);
+
+        let y = 30;
+        doc.setFontSize(11);
+
+        const urutanHari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
+
+        urutanHari.forEach(hari => {
+            const dataHari = jadwal.filter(j => j.hari === hari);
+
+            if (dataHari.length > 0) {
+                doc.setFontSize(13);
+                doc.text(hari, 14, y);
+                y += 6;
+
+                doc.setFontSize(11);
+                dataHari.forEach(j => {
+                    doc.text(`• ${j.mapel} (${j.jam})`, 18, y);
+                    y += 6;
+
+                    if (y > 280) {
+                        doc.addPage();
+                        y = 20;
+                    }
+                });
+
+                y += 5;
+            }
+        });
+
+        doc.save("Jadwal_Kelas_TI.pdf");
+    }
+
+
+</script>
+
+<script src="js/jadwal.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+</body>
+</html>

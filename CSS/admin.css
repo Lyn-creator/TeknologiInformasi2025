@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+    background: #f4f6f8;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #1d2671, #2563eb);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 12px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.navbar a,
+.navbar button {
+    color: #1d2671;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+/* CARD */
+form, table {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+/* FORM */
+form input,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* TABLE */
+th {
+    background: #2563eb;
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+}
+
+/* BUTTON */
+button.danger {
+    background: red;
+    color: white;
+    border-radius: 6px;
+}
+
+button {
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.danger {
+    background: #dc2626;
+    color: white;
+}
+
+button:not(.danger) {
+    background: #2563eb;
+    color: white;
+}
